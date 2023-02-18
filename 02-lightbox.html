@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <link rel="stylesheet" href="css/common.css"/>
+    <link rel="stylesheet" href="css/styles.css"/>
+    <link rel="stylesheet" href=" https://cdn.jsdelivr.net/npm/basiclightbox@5.0.4/dist/basicLightbox.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.12.1/simple-lightbox.css"
+          integrity="sha512-BjQ2UJBKmkJynH20LaFAU4E/kOtE7r7it8YvfwhlyGA9HqB6ZQj1Z9d8tN+y3v2RYunBtcQ8NlbNOkXFkLfobQ=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.12.1/simple-lightbox.min.js"
+            integrity="sha512-QoopN2y0b53eP+J2BNc1ff4ImedQAt2xDdhLQkUzTCyfniKkUlHbhweoYxDhCY78Z5EnMtY5rLtjtTK0Yc9Jcw=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"></script>
+    <title>SimpleLightbox library</title>
+  </head>
+  <body>
+    <p>
+      <a href="index.html">Go back</a>
+    </p>
+    <ul class="gallery"></ul>
+    <div class="image-modal-overlay">
+      <button class="modal__button-close" type="button" data-modal-close>
+        <svg class="modal__icon-close" width="18" height="18">
+          <use href="./images/icons.svg#icon-modal-close"/>
+        </svg>
+      </button>
+      <div class="image-modal"></div>
+    </div>
+    <script src="js/02-lightbox.js" type="module"></script>
+  </body>
+</html>
