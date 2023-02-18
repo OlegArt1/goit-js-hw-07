@@ -1,8 +1,6 @@
 import { galleryItems } from './gallery-items.js';
 
 const imagesGallery = document.querySelector('.gallery');
-const modalcontainerElem = document.querySelector('.image-modal-overlay');
-const modalContentElem = document.querySelector('.image-modal');
 
 const newElement = document.createElement("div");
 newElement.classList.add("gallery__item");
@@ -10,8 +8,16 @@ newElement.classList.add("gallery__item");
 const newElementLink = document.createElement("a");
 newElementLink.classList.add("gallery__link");
 
+const modalcontainerElem = document.createElement('div');
+modalcontainerElem.classList.add('image-modal-overlay');
+
+const modalContentElem = document.createElement('div');
+modalContentElem.classList.add('image-modal');
+
 imagesGallery.append(newElement);
 newElement.append(newElementLink);
+imagesGallery.after(modalcontainerElem);
+modalcontainerElem.append(modalContentElem);
 
 const imgElemtens = galleryItems.reduce((acum, item) =>
 {
@@ -31,7 +37,8 @@ newElementLink.addEventListener('click', (event) =>
 });
 document.addEventListener('keydown', (e) =>
 {
-  if (e.code === 'Escape') {
+  if (e.code === 'Escape')
+  {
     modalcontainerElem.classList.remove('visible');
   }
 });
