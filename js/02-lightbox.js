@@ -1,7 +1,5 @@
 import { galleryItems } from './gallery-items.js';
 
-import SimpleLightbox from "./simple-lightbox.esm.js";
-
 const lightbox = new SimpleLightbox('.gallery a',
 {
   loop: true,
