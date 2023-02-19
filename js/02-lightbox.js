@@ -1,6 +1,6 @@
 import { galleryItems } from './gallery-items.js';
 
-import SimpleLightbox from "../node_modules/simplelightbox/dist/simple-lightbox.esm.js";
+import SimpleLightbox from "./simple-lightbox.esm.js";
 
 const lightbox = new SimpleLightbox('.gallery a',
 {
