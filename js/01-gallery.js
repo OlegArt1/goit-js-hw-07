@@ -1,44 +1,52 @@
-import { galleryItems } from './gallery-items.js';
+// Gallery
 
-const imagesGallery = document.querySelector('.gallery');
+import { galleryItems } from "./gallery-items.js";
 
-const newElement = document.createElement("div");
-newElement.classList.add("gallery__item");
+const imageGallery = document.querySelector("div.gallery");
 
-const newElementLink = document.createElement("a");
-newElementLink.classList.add("gallery__link");
+const modalContainerElement = document.createElement("div");
 
-const modalcontainerElem = document.createElement('div');
-modalcontainerElem.classList.add('image-modal-overlay');
+const modalContentElement = document.createElement("div");
 
-const modalContentElem = document.createElement('div');
-modalContentElem.classList.add('image-modal');
+modalContainerElement.classList.add("image-modal-overlay");
 
-imagesGallery.append(newElement);
-newElement.append(newElementLink);
-imagesGallery.after(modalcontainerElem);
-modalcontainerElem.append(modalContentElem);
+modalContentElement.classList.add("image-modal");
 
-const imgElemtens = galleryItems.reduce((acum, item) =>
+imageGallery.after(modalContainerElement);
+
+modalContainerElement.append(modalContentElement);
+
+imageGallery.setAttribute("style", "margin-top: 50px; margin-bottom: 50px;");
+
+const imagesElemtens = galleryItems.reduce((acum, item) =>
 {
-  return (acum += `<a class='gallery__link' href='#'><img class='gallery__image' src="${item.preview}" data-source="${item.original}" alt="${item.description}"/></a>`);
+    return (acum += "<div class='gallery__item'>" +
+                    
+                    "<a class='gallery__link' href='#'>" +
+                    
+                    `<img class='gallery__image' src='${item.preview}' style='border: 2px solid black;' data-source='${item.original}' alt='${item.description}'/>` +
+                    
+                    "</a></div>");
 }, '');
-newElementLink.insertAdjacentHTML('beforeend', imgElemtens);
 
-newElementLink.addEventListener('click', (event) =>
+imageGallery.insertAdjacentHTML('beforeend', imagesElemtens);
+
+imageGallery.addEventListener('click', (event) =>
 {
-  if (event.target.nodeName !== 'IMG')
-  {
-    return;
-  }
-  modalcontainerElem.classList.add('visible');
-  modalContentElem.innerHTML = '';
-  modalContentElem.insertAdjacentHTML('beforeend', `<img class='image' src='${event.target.src}' alt='${event.target.alt}'/>`);
+    if (event.target.nodeName !== 'IMG')
+    {
+        return;
+    }
+    modalContainerElement.classList.add('visible');
+    
+    modalContentElement.innerHTML = '';
+    
+    modalContentElement.insertAdjacentHTML('beforeend', `<img class='image' src='${event.target.src}' alt='${event.target.alt}'/>`);
 });
 document.addEventListener('keydown', (e) =>
 {
-  if (e.code === 'Escape')
-  {
-    modalcontainerElem.classList.remove('visible');
-  }
+    if (e.code === 'Escape')
+    {
+        modalContainerElement.classList.remove('visible');
+    }
 });

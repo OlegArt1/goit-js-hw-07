@@ -1,41 +1,52 @@
+// Gallery
+
 import { galleryItems } from './gallery-items.js';
 
-const lightbox = new SimpleLightbox('.gallery a',
-{
-  loop: true,
-  captionSelector: 'img',
-  captionType: 'alt',
-  captionData: galleryItems.description,
-  captionPosition: 'bottom',
-  captionDelay: 250
-});
-const imagesGallery = document.querySelector('.gallery');
-const modalcontainerElem = document.querySelector('.image-modal-overlay');
-const modalContentElem = document.querySelector('.image-modal');
-const modalButtonClose = document.querySelector('.modal-button-close');
-const modalButtonIcon = document.querySelector('.modal-button-icon');
+const imageGallery = document.querySelector("ul.gallery");
 
-const imgElemtens = galleryItems.reduce((acum, item) =>
+const modalContainerElement = document.createElement("div");
+
+const modalContentElement = document.createElement("div");
+
+modalContainerElement.classList.add("image-modal-overlay");
+
+modalContentElement.classList.add("image-modal");
+
+imageGallery.after(modalContainerElement);
+
+modalContainerElement.append(modalContentElement);
+
+imageGallery.setAttribute("style", "margin-top: 50px; margin-bottom: 50px;");
+
+const imagesElemtens = galleryItems.reduce((acum, item) =>
 {
-  return (acum += `<li class='gallery__item'><a class='gallery__link' href='#'><img class='gallery__image' src="${item.preview}" alt="${item.description}"/></a></li>`);
+    return (acum += "<div class='gallery__item'>" +
+                    
+                    "<a class='gallery__link' href='#'>" +
+                    
+                    `<img class='gallery__image' src='${item.preview}' style='border: 2px solid black;' data-source='${item.original}' alt='${item.description}'/>` +
+                    
+                    "</a></div>");
 }, '');
 
-imagesGallery.insertAdjacentHTML('beforeend', imgElemtens);
+imageGallery.insertAdjacentHTML('beforeend', imagesElemtens);
 
-imagesGallery.addEventListener('click', (event) =>
+imageGallery.addEventListener('click', (event) =>
 {
-  if (event.target.nodeName !== 'IMG')
-  {
-    return;
-  }
-  modalcontainerElem.classList.add('visible');
-  modalContentElem.innerHTML = '';
-  modalContentElem.insertAdjacentHTML('beforeend', `<img class='image' src='${event.target.src}' alt='${event.target.alt}'/>`);
+    if (event.target.nodeName !== 'IMG')
+    {
+        return;
+    }
+    modalContainerElement.classList.add('visible');
+    
+    modalContentElement.innerHTML = '';
+    
+    modalContentElement.insertAdjacentHTML('beforeend', `<img class='image' src='${event.target.src}' alt='${event.target.alt}'/>`);
 });
-imagesGallery.addEventListener('keydown', (e) =>
+document.addEventListener('keydown', (e) =>
 {
-  if (e.code === 'Escape')
-  {
-    modalcontainerElem.classList.remove('visible');
-  }
+    if (e.code === 'Escape')
+    {
+        modalContainerElement.classList.remove('visible');
+    }
 });
