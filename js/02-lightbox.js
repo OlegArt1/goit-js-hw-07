@@ -4,31 +4,15 @@ import { galleryItems } from "./gallery-items.js";
 
 const gallery = document.querySelector(".gallery");
 
-const listItems = [];
+const galleryList = galleryItems.map((gallery) => "<li class='gallery_item'>" +
 
-galleryItems.forEach((element) =>
-{
-    const galleryLink = document.createElement("a");
+    `<a class='gallery__link' href='${gallery.original}'>` +
+    
+    `<img class='gallery__image' src='${gallery.preview}' style='border: 2px solid black;' data-source='${gallery.original}' title='${gallery.description}' alt='${gallery.description}'/>` +
+    
+    '</a></li>').join("");
 
-    const galleryImage = document.createElement("img");
-
-    galleryLink.href = element.original;
-
-    galleryLink.classList.add("gallery__link");
-
-    galleryImage.classList.add("gallery__image");
-
-    galleryImage.src = element.preview;
-
-    galleryImage.setAttribute("title", element.description);
-
-    galleryImage.alt = element.description;
-
-    galleryLink.append(galleryImage);
-
-    listItems.push(galleryLink);
-});
-gallery.append(...listItems);
+gallery.insertAdjacentHTML('beforeend', galleryList);
 
 new SimpleLightbox(".gallery a",
 {
