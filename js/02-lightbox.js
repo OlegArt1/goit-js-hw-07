@@ -1,52 +1,36 @@
 // Gallery
 
-import { galleryItems } from './gallery-items.js';
+import { galleryItems } from "./gallery-items.js";
 
-const imageGallery = document.querySelector("ul.gallery");
+const gallery = document.querySelector(".gallery");
 
-const modalContainerElement = document.createElement("div");
+const listItems = [];
 
-const modalContentElement = document.createElement("div");
-
-modalContainerElement.classList.add("image-modal-overlay");
-
-modalContentElement.classList.add("image-modal");
-
-imageGallery.after(modalContainerElement);
-
-modalContainerElement.append(modalContentElement);
-
-imageGallery.setAttribute("style", "margin-top: 50px; margin-bottom: 50px;");
-
-const imagesElemtens = galleryItems.reduce((acum, item) =>
+galleryItems.forEach((element) =>
 {
-    return (acum += "<div class='gallery__item'>" +
-                    
-                    "<a class='gallery__link' href='#'>" +
-                    
-                    `<img class='gallery__image' src='${item.preview}' style='border: 2px solid black;' data-source='${item.original}' alt='${item.description}'/>` +
-                    
-                    "</a></div>");
-}, '');
+    const galleryLink = document.createElement("a");
 
-imageGallery.insertAdjacentHTML('beforeend', imagesElemtens);
+    const galleryImage = document.createElement("img");
 
-imageGallery.addEventListener('click', (event) =>
-{
-    if (event.target.nodeName !== 'IMG')
-    {
-        return;
-    }
-    modalContainerElement.classList.add('visible');
-    
-    modalContentElement.innerHTML = '';
-    
-    modalContentElement.insertAdjacentHTML('beforeend', `<img class='image' src='${event.target.src}' alt='${event.target.alt}'/>`);
+    galleryLink.href = element.original;
+
+    galleryLink.classList.add("gallery__link");
+
+    galleryImage.classList.add("gallery__image");
+
+    galleryImage.src = element.preview;
+
+    galleryImage.setAttribute("title", element.description);
+
+    galleryImage.alt = element.description;
+
+    galleryLink.append(galleryImage);
+
+    listItems.push(galleryLink);
 });
-document.addEventListener('keydown', (e) =>
+gallery.append(...listItems);
+
+new SimpleLightbox(".gallery a",
 {
-    if (e.code === 'Escape')
-    {
-        modalContainerElement.classList.remove('visible');
-    }
+    captionDelay: 250,
 });
